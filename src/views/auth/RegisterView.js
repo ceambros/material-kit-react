@@ -1,19 +1,34 @@
-import React from 'react';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
+/* eslint-disable react/destructuring-assignment */
+/* eslint-disable react/prop-types */
+/* eslint-disable no-undef */
+/* eslint-disable no-unused-vars */
+import React, { useEffect } from 'react';
+// import { Link as RouterLink, useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
+import axios from 'axios';
 import { Formik } from 'formik';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import {
   Box,
   Button,
-  Checkbox,
+  // Checkbox,
   Container,
   FormHelperText,
-  Link,
+  // Link,
   TextField,
   Typography,
-  makeStyles
+  makeStyles,
+  Collapse
 } from '@material-ui/core';
 import Page from 'src/components/Page';
+
+import { Alert } from '@material-ui/lab';
+import {
+  esconderMensagem,
+  mostrarMensagem
+} from '../../store/mensagensReducer';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -24,14 +39,22 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const RegisterView = () => {
+const RegisterView = (props) => {
   const classes = useStyles();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
+
+  useEffect(() => {
+    props.esconderMensagem();
+  }, []);
+
+  const http = axios.create({
+    baseURL: 'http://localhost:8080'
+  });
 
   return (
     <Page
       className={classes.root}
-      title="Register"
+      title="Criar novo usuário"
     >
       <Box
         display="flex"
@@ -45,20 +68,35 @@ const RegisterView = () => {
               email: '',
               firstName: '',
               lastName: '',
-              password: '',
-              policy: false
+              senha: '',
+              password2: ''
+              // ,policy: false
             }}
             validationSchema={
               Yup.object().shape({
-                email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
-                firstName: Yup.string().max(255).required('First name is required'),
-                lastName: Yup.string().max(255).required('Last name is required'),
-                password: Yup.string().max(255).required('password is required'),
-                policy: Yup.boolean().oneOf([true], 'This field must be checked')
+                email: Yup.string().email('Precisa ser um email válido').max(255).required('Campo email é obrigatório'),
+                firstName: Yup.string().max(255).required('Campo nome é obrigatório'),
+                lastName: Yup.string().max(255).required('Campo sobrenome é obrigatório'),
+                senha: Yup.string().max(255).required('Campo senha é obrigatório'),
+                password2: Yup.string().max(255).required('Campo confirmar senha é obrigatório')
+                // ,policy: Yup.boolean().oneOf([true], 'This field must be checked')
               })
             }
-            onSubmit={() => {
-              navigate('/app/dashboard', { replace: true });
+            onSubmit={(values, { setSubmitting }) => {
+              http.post('/usuario', values, {
+                // headers: { 'x-tenant-id': localStorage.getItem('email_usuario_logado') }
+                headers: {
+                  'content-type': 'application/json',
+                  Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRleC1BUEkiLCJzdWIiOiJnaXRleCIsImlhdCI6MTYxMTk1MDk0OCwiZXhwIjoxNjEyMDM3MzQ4fQ.2QXOBWkxl3CCVs1ya-5qAeCG5keu0Dr6cmq4CJCOXm8'
+                },
+              }).then((response) => {
+                props.mostrarMensagem('Usuário cadastrado com sucesso', 'success');
+                setSubmitting(false);
+                // navigate('/app/dashboard', { replace: true });
+              }).catch((erro) => {
+                props.mostrarMensagem('Erro:'.concat(JSON.stringify(erro.message)), 'error');
+                setSubmitting(false);
+              });
             }}
           >
             {({
@@ -76,21 +114,26 @@ const RegisterView = () => {
                     color="textPrimary"
                     variant="h2"
                   >
-                    Create new account
+                    Criar nova conta
                   </Typography>
                   <Typography
                     color="textSecondary"
                     gutterBottom
                     variant="body2"
                   >
-                    Use your email to create new account
+                    Use seu email para criar a nova conta
                   </Typography>
                 </Box>
+                <Collapse in={props.openDialog} onClose={props.esconderMensagem}>
+                  <Alert severity={props.severity}>
+                    {props.mensagem}
+                  </Alert>
+                </Collapse>
                 <TextField
                   error={Boolean(touched.firstName && errors.firstName)}
                   fullWidth
                   helperText={touched.firstName && errors.firstName}
-                  label="First name"
+                  label="Nome"
                   margin="normal"
                   name="firstName"
                   onBlur={handleBlur}
@@ -102,7 +145,7 @@ const RegisterView = () => {
                   error={Boolean(touched.lastName && errors.lastName)}
                   fullWidth
                   helperText={touched.lastName && errors.lastName}
-                  label="Last name"
+                  label="Sobrenome"
                   margin="normal"
                   name="lastName"
                   onBlur={handleBlur}
@@ -114,7 +157,7 @@ const RegisterView = () => {
                   error={Boolean(touched.email && errors.email)}
                   fullWidth
                   helperText={touched.email && errors.email}
-                  label="Email Address"
+                  label="Email"
                   margin="normal"
                   name="email"
                   onBlur={handleBlur}
@@ -124,16 +167,29 @@ const RegisterView = () => {
                   variant="outlined"
                 />
                 <TextField
-                  error={Boolean(touched.password && errors.password)}
+                  error={Boolean(touched.senha && errors.senha)}
                   fullWidth
-                  helperText={touched.password && errors.password}
-                  label="Password"
+                  helperText={touched.senha && errors.senha}
+                  label="Senha"
                   margin="normal"
-                  name="password"
+                  name="senha"
                   onBlur={handleBlur}
                   onChange={handleChange}
                   type="password"
-                  value={values.password}
+                  value={values.senha}
+                  variant="outlined"
+                />
+                <TextField
+                  error={Boolean(touched.password2 && errors.password2)}
+                  fullWidth
+                  helperText={touched.password2 && errors.password2}
+                  label="Confirme a Senha"
+                  margin="normal"
+                  name="password2"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  type="password"
+                  value={values.password2}
                   variant="outlined"
                 />
                 <Box
@@ -141,7 +197,7 @@ const RegisterView = () => {
                   display="flex"
                   ml={-1}
                 >
-                  <Checkbox
+                  {/* <Checkbox
                     checked={values.policy}
                     name="policy"
                     onChange={handleChange}
@@ -161,7 +217,7 @@ const RegisterView = () => {
                     >
                       Terms and Conditions
                     </Link>
-                  </Typography>
+                  </Typography> */}
                 </Box>
                 {Boolean(touched.policy && errors.policy) && (
                   <FormHelperText error>
@@ -177,10 +233,11 @@ const RegisterView = () => {
                     type="submit"
                     variant="contained"
                   >
-                    Sign up now
+                    Salvar
                   </Button>
                 </Box>
-                <Typography
+
+                {/* <Typography
                   color="textSecondary"
                   variant="body1"
                 >
@@ -193,7 +250,7 @@ const RegisterView = () => {
                   >
                     Sign in
                   </Link>
-                </Typography>
+                </Typography> */}
               </form>
             )}
           </Formik>
@@ -203,4 +260,15 @@ const RegisterView = () => {
   );
 };
 
-export default RegisterView;
+const mapStateToProps = (state) => ({
+  mensagem: state.mensagemRedux.mensagem,
+  openDialog: state.mensagemRedux.mostrarMensagem,
+  severity: state.mensagemRedux.severity
+});
+
+const mapDispatchToProps = (dispatch) => bindActionCreators({
+  esconderMensagem,
+  mostrarMensagem
+}, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(RegisterView);

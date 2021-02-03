@@ -29,15 +29,15 @@ const Sales = ({ className, ...rest }) => {
       {
         backgroundColor: colors.indigo[500],
         data: [18, 5, 19, 27, 29, 19, 20],
-        label: 'This year'
+        label: 'Cacau Show'
       },
       {
         backgroundColor: colors.grey[200],
         data: [11, 20, 12, 29, 30, 25, 13],
-        label: 'Last year'
+        label: 'Boticário'
       }
     ],
-    labels: ['1 Aug', '2 Aug', '3 Aug', '4 Aug', '5 Aug', '6 Aug']
+    labels: ['1 Agosto', '2 Agosto', '3 Agosto', '4 Agosto', '5 Agosto', '6 Agosto']
   };
 
   const options = {
@@ -107,10 +107,10 @@ const Sales = ({ className, ...rest }) => {
             size="small"
             variant="text"
           >
-            Last 7 days
+            Últimos 7 dias
           </Button>
         )}
-        title="Latest Sales"
+        title="Últimas Vendas"
       />
       <Divider />
       <CardContent>
@@ -136,7 +136,7 @@ const Sales = ({ className, ...rest }) => {
           size="small"
           variant="text"
         >
-          Overview
+          Resumo
         </Button>
       </Box>
     </Card>

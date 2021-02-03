@@ -52,13 +52,13 @@ const TotalCustomers = ({ className, ...rest }) => {
               gutterBottom
               variant="h6"
             >
-              TOTAL CUSTOMERS
+              TOTAL DE FRANQUEADOS
             </Typography>
             <Typography
               color="textPrimary"
               variant="h3"
             >
-              1,600
+              25
             </Typography>
           </Grid>
           <Grid item>
@@ -77,13 +77,13 @@ const TotalCustomers = ({ className, ...rest }) => {
             className={classes.differenceValue}
             variant="body2"
           >
-            16%
+            1%
           </Typography>
           <Typography
             color="textSecondary"
             variant="caption"
           >
-            Since last month
+            Desde o mês passado
           </Typography>
         </Box>
       </CardContent>

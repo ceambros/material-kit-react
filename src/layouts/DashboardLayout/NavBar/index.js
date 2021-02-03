@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
-import { Link as RouterLink, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {
-  Avatar,
+  // Avatar,
   Box,
-  Button,
+  // Button,
   Divider,
   Drawer,
   Hidden,
@@ -12,11 +12,11 @@ import {
   Typography,
   makeStyles
 } from '@material-ui/core';
+import GroupIcon from '@material-ui/icons/Group';
 import {
-  AlertCircle as AlertCircleIcon,
+  // AlertCircle as AlertCircleIcon,
   BarChart as BarChartIcon,
   Lock as LockIcon,
-  Settings as SettingsIcon,
   ShoppingBag as ShoppingBagIcon,
   User as UserIcon,
   UserPlus as UserPlusIcon,
@@ -26,8 +26,8 @@ import NavItem from './NavItem';
 
 const user = {
   avatar: '/static/images/avatars/avatar_6.png',
-  jobTitle: 'Senior Developer',
-  name: 'Katarina Smith'
+  jobTitle: 'CEO',
+  name: 'Camila Gasparini'
 };
 
 const items = [
@@ -37,24 +37,24 @@ const items = [
     title: 'Dashboard'
   },
   {
+    href: '/app/cliente',
+    icon: GroupIcon,
+    title: 'Clientes'
+  },
+  {
     href: '/app/customers',
     icon: UsersIcon,
-    title: 'Customers'
+    title: 'Padrão'
   },
   {
     href: '/app/products',
     icon: ShoppingBagIcon,
-    title: 'Products'
+    title: 'Produtos'
   },
   {
     href: '/app/account',
     icon: UserIcon,
-    title: 'Account'
-  },
-  {
-    href: '/app/settings',
-    icon: SettingsIcon,
-    title: 'Settings'
+    title: 'Conta'
   },
   {
     href: '/login',
@@ -62,15 +62,15 @@ const items = [
     title: 'Login'
   },
   {
-    href: '/register',
+    href: '/app/register',
     icon: UserPlusIcon,
-    title: 'Register'
+    title: 'Registrar Usuário'
   },
-  {
-    href: '/404',
-    icon: AlertCircleIcon,
-    title: 'Error'
-  }
+  // {
+  //   href: '/404',
+  //   icon: AlertCircleIcon,
+  //   title: 'Error'
+  // }
 ];
 
 const useStyles = makeStyles(() => ({
@@ -112,12 +112,12 @@ const NavBar = ({ onMobileClose, openMobile }) => {
         flexDirection="column"
         p={2}
       >
-        <Avatar
+        {/* <Avatar
           className={classes.avatar}
           component={RouterLink}
           src={user.avatar}
           to="/app/account"
-        />
+        /> */}
         <Typography
           className={classes.name}
           color="textPrimary"
@@ -145,6 +145,7 @@ const NavBar = ({ onMobileClose, openMobile }) => {
           ))}
         </List>
       </Box>
+      {/*
       <Box flexGrow={1} />
       <Box
         p={2}
@@ -178,7 +179,7 @@ const NavBar = ({ onMobileClose, openMobile }) => {
             See PRO version
           </Button>
         </Box>
-      </Box>
+      </Box> */}
     </Box>
   );
 
@@ -215,7 +216,7 @@ NavBar.propTypes = {
 };
 
 NavBar.defaultProps = {
-  onMobileClose: () => {},
+  onMobileClose: () => { },
   openMobile: false
 };
 

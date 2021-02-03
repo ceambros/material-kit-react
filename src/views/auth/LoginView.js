@@ -1,5 +1,6 @@
 import React from 'react';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
+// import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
 import {
@@ -7,7 +8,7 @@ import {
   Button,
   Container,
   Grid,
-  Link,
+  // Link,
   TextField,
   Typography,
   makeStyles
@@ -43,12 +44,12 @@ const LoginView = () => {
         <Container maxWidth="sm">
           <Formik
             initialValues={{
-              email: 'demo@devias.io',
-              password: 'Password123'
+              email: 'teste@gmail.com',
+              password: 'senhateste'
             }}
             validationSchema={Yup.object().shape({
-              email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
-              password: Yup.string().max(255).required('Password is required')
+              email: Yup.string().email('Precisa ser um email válido').max(255).required('Campo email é obrigatório'),
+              password: Yup.string().max(255).required('Campo senha é obrigatório')
             })}
             onSubmit={() => {
               navigate('/app/dashboard', { replace: true });
@@ -69,14 +70,14 @@ const LoginView = () => {
                     color="textPrimary"
                     variant="h2"
                   >
-                    Sign in
+                    Entrar
                   </Typography>
                   <Typography
                     color="textSecondary"
                     gutterBottom
                     variant="body2"
                   >
-                    Sign in on the internal platform
+                    Autenticação obrigatória
                   </Typography>
                 </Box>
                 <Grid
@@ -96,7 +97,7 @@ const LoginView = () => {
                       size="large"
                       variant="contained"
                     >
-                      Login with Facebook
+                      Entrar com Facebook
                     </Button>
                   </Grid>
                   <Grid
@@ -111,7 +112,7 @@ const LoginView = () => {
                       size="large"
                       variant="contained"
                     >
-                      Login with Google
+                      Entrar com Google
                     </Button>
                   </Grid>
                 </Grid>
@@ -124,14 +125,14 @@ const LoginView = () => {
                     color="textSecondary"
                     variant="body1"
                   >
-                    or login with email address
+                    ou entre com seu email
                   </Typography>
                 </Box>
                 <TextField
                   error={Boolean(touched.email && errors.email)}
                   fullWidth
                   helperText={touched.email && errors.email}
-                  label="Email Address"
+                  label="Email"
                   margin="normal"
                   name="email"
                   onBlur={handleBlur}
@@ -144,7 +145,7 @@ const LoginView = () => {
                   error={Boolean(touched.password && errors.password)}
                   fullWidth
                   helperText={touched.password && errors.password}
-                  label="Password"
+                  label="Senha"
                   margin="normal"
                   name="password"
                   onBlur={handleBlur}
@@ -162,23 +163,23 @@ const LoginView = () => {
                     type="submit"
                     variant="contained"
                   >
-                    Sign in now
+                    Entrar
                   </Button>
                 </Box>
-                <Typography
+                {/* <Typography
                   color="textSecondary"
                   variant="body1"
                 >
-                  Don&apos;t have an account?
+                  Ainda não é cadastrado?
                   {' '}
                   <Link
                     component={RouterLink}
                     to="/register"
                     variant="h6"
                   >
-                    Sign up
+                    Entrar
                   </Link>
-                </Typography>
+                </Typography> */}
               </form>
             )}
           </Formik>
