@@ -11,13 +11,17 @@ import ProductListView from 'src/views/product/ProductListView';
 import RegisterView from 'src/views/auth/RegisterView';
 import SettingsView from 'src/views/settings/SettingsView';
 import ClienteView from './views/cliente/ClienteView';
+import PedidoView from './views/pedido/PedidoView';
+import ItemDetalheView from './views/item/ItemDetalheView';
 
 const routes = [
   {
     path: 'app',
     element: <DashboardLayout />,
     children: [
+      { path: 'itemDetalheView/:id', element: <ItemDetalheView /> },
       { path: 'cliente', element: <ClienteView /> },
+      { path: 'pedido', element: <PedidoView /> },
       { path: 'account', element: <AccountView /> },
       { path: 'register', element: <RegisterView /> },
       { path: 'customers', element: <CustomerListView /> },

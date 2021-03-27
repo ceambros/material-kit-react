@@ -26,8 +26,8 @@ import NavItem from './NavItem';
 
 const user = {
   avatar: '/static/images/avatars/avatar_6.png',
-  jobTitle: 'CEO',
-  name: 'Camila Gasparini'
+  jobTitle: 'Administrador',
+  name: localStorage.getItem('USUARIO_AUTENTICADO')
 };
 
 const items = [
@@ -37,9 +37,19 @@ const items = [
     title: 'Dashboard'
   },
   {
+    href: '/app/register',
+    icon: UserPlusIcon,
+    title: 'Registrar Usuário'
+  },
+  {
     href: '/app/cliente',
     icon: GroupIcon,
     title: 'Clientes'
+  },
+  {
+    href: '/app/pedido',
+    icon: ShoppingBagIcon,
+    title: 'Pedidos'
   },
   {
     href: '/app/customers',
@@ -60,11 +70,6 @@ const items = [
     href: '/login',
     icon: LockIcon,
     title: 'Login'
-  },
-  {
-    href: '/app/register',
-    icon: UserPlusIcon,
-    title: 'Registrar Usuário'
   },
   // {
   //   href: '/404',

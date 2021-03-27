@@ -6,10 +6,11 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable linebreak-style */
 import React, { useEffect, useState } from 'react';
+import { getBearerToken } from 'src/utils/Data';
 import { TextField } from '@material-ui/core';
 import axios from 'axios';
 
-function ComboFranquia(props) {
+function ComboFranquia({ label }, props) {
   const [empresas, setListaEmpresas] = useState([]);
 
   function recuperarEmpresas() {
@@ -20,7 +21,7 @@ function ComboFranquia(props) {
     http.get('/cliente/franquias', {
       headers: {
         'content-type': 'application/json',
-        Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRleC1BUEkiLCJzdWIiOiJnaXRleCIsImlhdCI6MTYxMjI3MTQyNiwiZXhwIjoxNjEyMzU3ODI2fQ.iOR-JkVTA5X2RTs_qCsC0K8xea0eGTJP7S75AD0ZBAE'
+        Authorization: `Bearer ${getBearerToken}`
       }
     }).then((response) => {
       setListaEmpresas(response.data);
@@ -36,16 +37,18 @@ function ComboFranquia(props) {
   return (
     <TextField
       fullWidth
-      label="Franquia"
+      label={label}
       name={props.name}
       onChange={props.onChange}
       margin="normal"
-      required
+      // required
+      error={props.error}
+      helperText={props.helperText}
       select
       SelectProps={{ native: true }}
       value={props.empresaSelecionada}
       variant="outlined"
-      size={props.size}
+      size="small"
     >
       <option key="0" value="" />
       {empresas.map((option) => (

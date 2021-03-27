@@ -7,7 +7,8 @@ import {
   Toolbar,
   makeStyles
 } from '@material-ui/core';
-import Logo from 'src/components/Logo';
+// import Logo from 'src/components/Logo';
+import SvgIcon from '@material-ui/core/SvgIcon';
 
 const useStyles = makeStyles(({
   root: {},
@@ -15,6 +16,14 @@ const useStyles = makeStyles(({
     height: 64
   }
 }));
+
+function HomeIcon(props) {
+  return (
+    <SvgIcon {...props}>
+      <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+    </SvgIcon>
+  );
+}
 
 const TopBar = ({ className, ...rest }) => {
   const classes = useStyles();
@@ -27,7 +36,8 @@ const TopBar = ({ className, ...rest }) => {
     >
       <Toolbar className={classes.toolbar}>
         <RouterLink to="/">
-          <Logo />
+          {/* <Logo /> */}
+          <HomeIcon style={{ fontSize: 40 }} />
         </RouterLink>
       </Toolbar>
     </AppBar>

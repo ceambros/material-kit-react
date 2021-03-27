@@ -1,23 +1,23 @@
 /* eslint-disable linebreak-style */
 const ESTADO_INICIAL = {
   mensagem: 'Olá',
-  mostrarMensagem: false,
-  severity: 'success'
+  visible: false,
+  severity: 'error'
 };
 
 export const ACTIONS = {
-  MOSTRAR_MENSAGEM: 'MENSAGENS_MOSTRAR',
-  ESCONDER_MENSAGEM: 'MENSAGENS_ESCONDER'
+  MOSTRAR_MENSAGEM: 'MOSTRAR_MENSAGEM',
+  ESCONDER_MENSAGEM: 'ESCONDER_MENSAGEM'
 };
 
 export function mensagemReducer(state = ESTADO_INICIAL, action) {
   switch (action.type) {
     case ACTIONS.MOSTRAR_MENSAGEM:
       return {
-        ...state, mensagem: action.mensagem, severity: action.severity, mostrarMensagem: true
+        ...state, mensagem: action.mensagem, severity: action.severity, visible: true
       };
     case ACTIONS.ESCONDER_MENSAGEM:
-      return { ...state, mensagem: '', mostrarMensagem: false };
+      return { ...state, mensagem: '', visible: false };
     default:
       return state;
   }

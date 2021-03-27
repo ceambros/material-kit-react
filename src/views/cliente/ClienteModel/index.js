@@ -1,2 +1,2 @@
 /* eslint-disable linebreak-style */
-export { default } from './Cliente';
+export { default } from './ClienteModel';

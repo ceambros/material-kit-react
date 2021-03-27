@@ -2,11 +2,10 @@ import React from 'react';
 import { NavLink as RouterLink } from 'react-router-dom';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
-import {
-  Button,
-  ListItem,
-  makeStyles
-} from '@material-ui/core';
+import { Button, ListItem, makeStyles } from '@material-ui/core';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { mostrarMensagem, esconderMensagem } from 'src/store/mensagensReducer';
 
 const useStyles = makeStyles((theme) => ({
   item: {
@@ -60,6 +59,7 @@ const NavItem = ({
         className={classes.button}
         component={RouterLink}
         to={href}
+        onClick={() => { rest.esconderMensagem(); }}
       >
         {Icon && (
           <Icon
@@ -82,4 +82,15 @@ NavItem.propTypes = {
   title: PropTypes.string
 };
 
-export default NavItem;
+const mapStateToProps = (state) => ({
+  mensagem: state.mensagemRedux.mensagem,
+  visible: state.mensagemRedux.visible,
+  severity: state.mensagemRedux.severity
+});
+
+const mapDispatchToProps = (dispatch) => bindActionCreators({
+  mostrarMensagem,
+  esconderMensagem
+}, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(NavItem);

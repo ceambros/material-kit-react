@@ -10,7 +10,7 @@ import Budget from './Budget';
 // import LatestProducts from './LatestProducts';
 import Sales from './Sales';
 // import TasksProgress from './TasksProgress';
-import TotalCustomers from './TotalCustomers';
+// import TotalCustomers from './TotalCustomers';
 // import TotalProfit from './TotalProfit';
 // import TrafficByDevice from './TrafficByDevice';
 
@@ -27,33 +27,15 @@ const Dashboard = () => {
   const classes = useStyles();
 
   return (
-    <Page
-      className={classes.root}
-      title="Dashboard"
-    >
+    <Page className={classes.root} title="Dashboard">
       <Container maxWidth={false}>
-        <Grid
-          container
-          spacing={3}
-        >
-          <Grid
-            item
-            lg={3}
-            sm={6}
-            xl={3}
-            xs={12}
-          >
+        <Grid container spacing={3}>
+          <Grid item lg={2} sm={6} xl={2} xs={12}>
             <Budget />
           </Grid>
-          <Grid
-            item
-            lg={3}
-            sm={6}
-            xl={3}
-            xs={12}
-          >
+          {/* <Grid item lg={3} sm={6} xl={3} xs={12}>
             <TotalCustomers />
-          </Grid>
+          </Grid> */}
           {/* <Grid
             item
             lg={3}
@@ -72,13 +54,7 @@ const Dashboard = () => {
           >
             <TotalProfit />
           </Grid> */}
-          <Grid
-            item
-            lg={8}
-            md={12}
-            xl={9}
-            xs={12}
-          >
+          <Grid item lg={8} md={12} xl={8} xs={12}>
             <Sales />
           </Grid>
           {/* <Grid

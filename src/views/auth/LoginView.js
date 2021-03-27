@@ -1,3 +1,5 @@
+/* eslint-disable max-len */
+/* eslint-disable no-unused-vars */
 import React from 'react';
 // import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
@@ -16,6 +18,7 @@ import {
 import FacebookIcon from 'src/icons/Facebook';
 import GoogleIcon from 'src/icons/Google';
 import Page from 'src/components/Page';
+import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -44,15 +47,29 @@ const LoginView = () => {
         <Container maxWidth="sm">
           <Formik
             initialValues={{
-              email: 'teste@gmail.com',
-              password: 'senhateste'
+              email: 'admin@admin.com.br',
+              password: 'Admin!#'
             }}
             validationSchema={Yup.object().shape({
-              email: Yup.string().email('Precisa ser um email válido').max(255).required('Campo email é obrigatório'),
+              // email: Yup.string().email('Precisa ser um email válido').max(255).required('Campo email é obrigatório'),
               password: Yup.string().max(255).required('Campo senha é obrigatório')
             })}
-            onSubmit={() => {
-              navigate('/app/dashboard', { replace: true });
+            onSubmit={(values) => {
+              const http = axios.create({ baseURL: 'http://localhost:8080' });
+              http.post('/auth', {
+                email: values.email,
+                senha: values.password
+              }, {
+                headers: {
+                  'content-type': 'application/json',
+                }
+              }).then((response) => {
+                localStorage.setItem('BEARER_TOKEN', `Bearer ${response.data.token}`);
+                localStorage.setItem('USUARIO_AUTENTICADO', values.email);
+                navigate('/app/dashboard', { replace: true });
+              }).catch((erro) => {
+                console.log(erro);
+              });
             }}
           >
             {({
@@ -137,7 +154,7 @@ const LoginView = () => {
                   name="email"
                   onBlur={handleBlur}
                   onChange={handleChange}
-                  type="email"
+                  // type="email"
                   value={values.email}
                   variant="outlined"
                 />
@@ -157,7 +174,7 @@ const LoginView = () => {
                 <Box my={2}>
                   <Button
                     color="primary"
-                    disabled={isSubmitting}
+                    // disabled={isSubmitting}
                     fullWidth
                     size="large"
                     type="submit"

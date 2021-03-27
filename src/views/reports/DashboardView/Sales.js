@@ -29,12 +29,12 @@ const Sales = ({ className, ...rest }) => {
       {
         backgroundColor: colors.indigo[500],
         data: [18, 5, 19, 27, 29, 19, 20],
-        label: 'Cacau Show'
+        label: 'Supermercado 1'
       },
       {
         backgroundColor: colors.grey[200],
         data: [11, 20, 12, 29, 30, 25, 13],
-        label: 'Boticário'
+        label: 'Supermercado 2'
       }
     ],
     labels: ['1 Agosto', '2 Agosto', '3 Agosto', '4 Agosto', '5 Agosto', '6 Agosto']
